@@ -125,11 +125,12 @@ function LandingPage({ onGoLogin, onGoRegister, recordsUpdated }) {
   );
 }
 
-// ─── LANDING PAGE ───────────────────────────────────────────────────────────
+// ─── LOGIN PAGE ─────────────────────────────────────────────────────────────
 function LoginPage({ onLogin, onGoRegister, onBack }) {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -153,49 +154,173 @@ function LoginPage({ onLogin, onGoRegister, onBack }) {
   };
 
   return (
-    <div className="login-bg">
-      <div className="login-card">
-        <button type="button" className="btn-auth-back" onClick={onBack}>← Back</button>
-        <div className="login-logo">
-          <svg viewBox="0 0 40 40" fill="none">
-            <rect width="40" height="40" rx="10" fill="#1a3a5c"/>
-            <path d="M8 12h24M8 20h16M8 28h20" stroke="#4fc3f7" strokeWidth="2.5" strokeLinecap="round"/>
-            <circle cx="30" cy="28" r="5" fill="#4fc3f7"/>
-            <path d="M28 28l1.5 1.5L32 26" stroke="#1a3a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+    <div className="login-split">
+      {/* ── Left Branding Panel ── */}
+      <div className="login-brand-panel">
+        <button type="button" className="btn-auth-back login-back-light" onClick={onBack}>← Back</button>
+
+        <div className="brand-content">
+          <div className="brand-logo-row">
+            <svg viewBox="0 0 40 40" fill="none" className="brand-icon">
+              <rect width="40" height="40" rx="10" fill="rgba(255,255,255,0.15)"/>
+              <path d="M8 12h24M8 20h16M8 28h20" stroke="#4fc3f7" strokeWidth="2.5" strokeLinecap="round"/>
+              <circle cx="30" cy="28" r="5" fill="#4fc3f7"/>
+              <path d="M28 28l1.5 1.5L32 26" stroke="#0f2540" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="brand-name">Lab Tracker</span>
+          </div>
+
+          <h2 className="brand-heading">Manage your lab records<br/>with confidence.</h2>
+          <p className="brand-description">
+            A streamlined platform built for teachers to track experiments, manage sections, and generate reports — all in one place.
+          </p>
+
+          <div className="brand-features">
+            <div className="brand-feature-item">
+              <div className="brand-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+                  <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M9 14l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Experiment Tracking</strong>
+                <span>Mark completion, dates & remarks per batch</span>
+              </div>
+            </div>
+            <div className="brand-feature-item">
+              <div className="brand-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <strong>PDF Reports</strong>
+                <span>Export professional lab records instantly</span>
+              </div>
+            </div>
+            <div className="brand-feature-item">
+              <div className="brand-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Section & Batch Management</strong>
+                <span>Organize students across multiple batches</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="brand-testimonial">
+            <p>&ldquo;Lab Tracker has saved us hours of manual paperwork every week. It&apos;s incredibly intuitive.&rdquo;</p>
+            <div className="testimonial-author">
+              <div className="testimonial-avatar">DS</div>
+              <div>
+                <strong>Dr. Sharma</strong>
+                <span>HOD, Computer Science</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <h1>Lab Tracker</h1>
-        <p className="login-sub">Teacher Portal</p>
-        <form onSubmit={submit}>
-          <div className="field">
-            <label>Username</label>
-            <input
-              type="text"
-              value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
-              placeholder="Enter username"
-              required
-            />
+
+        <div className="brand-footer">
+          <span>© {new Date().getFullYear()} Lab Tracker</span>
+          <span>·</span>
+          <span>Dayananda Sagar College of Engineering</span>
+        </div>
+      </div>
+
+      {/* ── Right Form Panel ── */}
+      <div className="login-form-panel">
+        <div className="login-form-container">
+          <div className="login-form-header">
+            <h1>Welcome back</h1>
+            <p className="login-sub">Sign in to your teacher account to continue</p>
           </div>
-          <div className="field">
-            <label>Password</label>
-            <input
-              type="password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              placeholder="Enter password"
-              required
-            />
+
+          <form onSubmit={submit} className="login-form">
+            <div className="field">
+              <label>Username</label>
+              <div className="input-with-icon">
+                <svg className="field-icon" viewBox="0 0 24 24" fill="none" width="18" height="18">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/>
+                </svg>
+                <input
+                  type="text"
+                  value={form.username}
+                  onChange={(e) => setForm({ ...form, username: e.target.value })}
+                  placeholder="Enter your username"
+                  required
+                />
+              </div>
+            </div>
+            <div className="field">
+              <label>Password</label>
+              <div className="input-with-icon">
+                <svg className="field-icon" viewBox="0 0 24 24" fill="none" width="18" height="18">
+                  <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  placeholder="Enter your password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {error && <p className="error-msg">{error}</p>}
+
+            <button type="submit" className="btn-primary login-submit-btn" disabled={loading}>
+              {loading ? (
+                <span className="btn-loading">
+                  <span className="spinner" />
+                  Signing in…
+                </span>
+              ) : "Sign In"}
+            </button>
+          </form>
+
+          <div className="login-divider">
+            <span>or</span>
           </div>
-          {error && <p className="error-msg">{error}</p>}
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? "Signing in…" : "Sign In"}
-          </button>
-        </form>
-        <p className="auth-switch">
-          Don&apos;t have an account?{" "}
-          <button type="button" className="link-btn" onClick={onGoRegister}>Register</button>
-        </p>
+
+          <p className="auth-switch">
+            Don&apos;t have an account?{" "}
+            <button type="button" className="link-btn" onClick={onGoRegister}>Create an account</button>
+          </p>
+
+          <p className="login-admin-hint">
+            Are you an admin?{" "}
+            <a href="/admin" className="link-btn">Go to Admin Panel</a>
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -206,6 +331,7 @@ function RegisterPage({ onGoLogin, onBack }) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -247,64 +373,158 @@ function RegisterPage({ onGoLogin, onBack }) {
   };
 
   return (
-    <div className="login-bg">
-      <div className="login-card">
-        <button type="button" className="btn-auth-back" onClick={onBack}>← Back</button>
-        <div className="login-logo">
-          <svg viewBox="0 0 40 40" fill="none">
-            <rect width="40" height="40" rx="10" fill="#1a3a5c"/>
-            <path d="M8 12h24M8 20h16M8 28h20" stroke="#4fc3f7" strokeWidth="2.5" strokeLinecap="round"/>
-            <circle cx="30" cy="28" r="5" fill="#4fc3f7"/>
-            <path d="M28 28l1.5 1.5L32 26" stroke="#1a3a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+    <div className="login-split">
+      {/* ── Left Branding Panel ── */}
+      <div className="login-brand-panel">
+        <button type="button" className="btn-auth-back login-back-light" onClick={onBack}>← Back</button>
+
+        <div className="brand-content">
+          <div className="brand-logo-row">
+            <svg viewBox="0 0 40 40" fill="none" className="brand-icon">
+              <rect width="40" height="40" rx="10" fill="rgba(255,255,255,0.15)"/>
+              <path d="M8 12h24M8 20h16M8 28h20" stroke="#4fc3f7" strokeWidth="2.5" strokeLinecap="round"/>
+              <circle cx="30" cy="28" r="5" fill="#4fc3f7"/>
+              <path d="M28 28l1.5 1.5L32 26" stroke="#0f2540" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="brand-name">Lab Tracker</span>
+          </div>
+
+          <h2 className="brand-heading">Join the platform<br/>trusted by educators.</h2>
+          <p className="brand-description">
+            Create your account in seconds and start managing lab experiments, tracking progress, and generating reports.
+          </p>
+
+          <div className="brand-stats">
+            <div className="brand-stat">
+              <strong>500+</strong>
+              <span>Teachers</span>
+            </div>
+            <div className="brand-stat">
+              <strong>12,000+</strong>
+              <span>Records Managed</span>
+            </div>
+            <div className="brand-stat">
+              <strong>98%</strong>
+              <span>Satisfaction</span>
+            </div>
+          </div>
+
+          <div className="brand-testimonial">
+            <p>&ldquo;Setting up was effortless. I was managing lab sheets within minutes of signing up.&rdquo;</p>
+            <div className="testimonial-author">
+              <div className="testimonial-avatar">RK</div>
+              <div>
+                <strong>Prof. Rajesh Kumar</strong>
+                <span>Dept. of Electronics</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <h1>Create Account</h1>
-        <p className="login-sub">Register to continue</p>
 
-        <form onSubmit={submit}>
-          <div className="field">
-            <label>Username</label>
-            <input
-              type="text"
-              value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
-              placeholder="Choose a username"
-              required
-            />
-          </div>
-          <div className="field">
-            <label>Password</label>
-            <input
-              type="password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              placeholder="Create a password"
-              required
-            />
-          </div>
-          <div className="field">
-            <label>Confirm Password</label>
-            <input
-              type="password"
-              value={form.confirmPassword}
-              onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-              placeholder="Confirm your password"
-              required
-            />
+        <div className="brand-footer">
+          <span>© {new Date().getFullYear()} Lab Tracker</span>
+          <span>·</span>
+          <span>Dayananda Sagar College of Engineering</span>
+        </div>
+      </div>
+
+      {/* ── Right Form Panel ── */}
+      <div className="login-form-panel">
+        <div className="login-form-container">
+          <div className="login-form-header">
+            <h1>Create your account</h1>
+            <p className="login-sub">Fill in the details below to get started</p>
           </div>
 
-          {error && <p className="error-msg">{error}</p>}
-          {success && <p className="success-msg">{success}</p>}
+          <form onSubmit={submit} className="login-form">
+            <div className="field">
+              <label>Username</label>
+              <div className="input-with-icon">
+                <svg className="field-icon" viewBox="0 0 24 24" fill="none" width="18" height="18">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="1.5"/>
+                </svg>
+                <input
+                  type="text"
+                  value={form.username}
+                  onChange={(e) => setForm({ ...form, username: e.target.value })}
+                  placeholder="Choose a username"
+                  required
+                />
+              </div>
+            </div>
+            <div className="field">
+              <label>Password</label>
+              <div className="input-with-icon">
+                <svg className="field-icon" viewBox="0 0 24 24" fill="none" width="18" height="18">
+                  <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  placeholder="Create a password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+            <div className="field">
+              <label>Confirm Password</label>
+              <div className="input-with-icon">
+                <svg className="field-icon" viewBox="0 0 24 24" fill="none" width="18" height="18">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={form.confirmPassword}
+                  onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
+                  placeholder="Confirm your password"
+                  required
+                />
+              </div>
+            </div>
 
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? "Creating account…" : "Register"}
-          </button>
-        </form>
+            {error && <p className="error-msg">{error}</p>}
+            {success && <p className="success-msg">{success}</p>}
 
-        <p className="auth-switch">
-          Already have an account?{" "}
-          <button type="button" className="link-btn" onClick={onGoLogin}>Sign In</button>
-        </p>
+            <button type="submit" className="btn-primary login-submit-btn" disabled={loading}>
+              {loading ? (
+                <span className="btn-loading">
+                  <span className="spinner" />
+                  Creating account…
+                </span>
+              ) : "Create Account"}
+            </button>
+          </form>
+
+          <div className="login-divider">
+            <span>or</span>
+          </div>
+
+          <p className="auth-switch">
+            Already have an account?{" "}
+            <button type="button" className="link-btn" onClick={onGoLogin}>Sign In</button>
+          </p>
+        </div>
       </div>
     </div>
   );

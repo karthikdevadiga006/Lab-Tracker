@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "lab-tracker-server": {
+      "command": "node",
+      "args": ["index.js"],
+      "cwd": "./server",
+      "env": {
+        "MONGO_URI": "${MONGO_URI}",
+        "JWT_SECRET": "${JWT_SECRET}",
+        "PORT": "5000"
+      }
+    },
+    "lab-tracker-client": {
+      "command": "npx",
+      "args": ["vite", "--port", "5173"],
+      "cwd": "./client"
+    }
+  }
+}
